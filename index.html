@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>MUSKCAT | $MUSKCAT on Solana</title>
+
+  <meta
+    name="description"
+    content="MUSKCAT — Solana's masked meme cat. Fast chain. Strong memes. Shhh."
+  />
+
+  <meta name="theme-color" content="#F5B800" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: "#FFF8E8",
+            gold: "#F5B800",
+            gold2: "#D79A00",
+            ink: "#0A0A0A",
+            solGreen: "#14F195",
+            solPurple: "#9945FF",
+            soft: "#F2E7C9"
+          },
+          fontFamily: {
+            display: ["Archivo Black", "sans-serif"],
+            sans: ["Inter", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,255,255,.7), transparent 28%),
+        linear-gradient(180deg, #FFF8E8 0%, #FFF3D1 100%);
+      color: #0A0A0A;
+      overflow-x: hidden;
+    }
+
+    [x-cloak] {
+      display: none !important;
+    }
+
+    ::selection {
+      background: #F5B800;
+      color: #000;
+    }
+
+    .comic-shadow {
+      box-shadow: 5px 5px 0 #0A0A0A;
+    }
+
+    .comic-shadow-lg {
+      box-shadow: 8px 8px 0 #0A0A0A;
+    }
+
+    .comic-card {
+      border: 3px solid #0A0A0A;
+      box-shadow: 5px 5px 0 #0A0A0A;
+    }
+
+    .comic-btn {
+      border: 3px solid #0A0A0A;
+      box-shadow: 4px 4px 0 #0A0A0A;
+      transition: .15s ease;
+    }
+
+    .comic-btn:active {
+      transform: translate(3px, 3px);
+      box-shadow: 1px 1px 0 #0A0A0A;
+    }
+
+    .sol-gradient {
+      background: linear-gradient(90deg, #14F195 0%, #9945FF 100%);
+    }
+
+    .sol-text {
+      background: linear-gradient(90deg, #14F195 0%, #9945FF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .ticker {
+      display: flex;
+      width: max-content;
+      animation: ticker 18s linear infinite;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    .mobile-section {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+
+    @media (min-width: 768px) {
+      .mobile-section {
+        padding-top: 96px;
+        padding-bottom: 96px;
+      }
+    }
+  </style>
+</head>
+
+<body x-data="muskcatApp()" class="font-sans">
+
+  <!-- NAVBAR -->
+  <header class="sticky top-0 z-50 border-b-[3px] border-black bg-cream/95 backdrop-blur-lg">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-3 py-3 sm:px-5">
+
+      <a href="#home" class="flex items-center gap-2">
+        <img
+          src="muskcat-logo.png"
+          alt="MUSKCAT logo"
+          class="h-11 w-11 rounded-full border-2 border-black object-cover"
+        />
+
+        <div class="leading-none">
+          <div class="font-display text-lg">MUSKCAT</div>
+          <div class="mt-1 text-[9px] font-black tracking-[.18em] text-black/55">
+            $MUSKCAT • SOLANA
+          </div>
+        </div>
+      </a>
+
+      <button
+        @click="mobileMenu = !mobileMenu"
+        class="flex h-11 w-11 items-center justify-center rounded-xl border-[3px] border-black bg-white lg:hidden"
+        aria-label="Toggle menu"
+      >
+        <span x-show="!mobileMenu" class="text-2xl font-black">☰</span>
+        <span x-show="mobileMenu" x-cloak class="text-2xl font-black">×</span>
+      </button>
+
+      <nav class="hidden items-center gap-7 text-sm font-black lg:flex">
+        <a href="#about">ABOUT</a>
+        <a href="#tokenomics">TOKENOMICS</a>
+        <a href="#buy">HOW TO BUY</a>
+        <a href="#roadmap">ROADMAP</a>
+
+        <a href="#buy" class="comic-btn rounded-xl bg-gold px-5 py-3">
+          BUY $MUSKCAT
+        </a>
+      </nav>
+    </div>
+
+    <div
+      x-show="mobileMenu"
+      x-transition
+      x-cloak
+      class="border-t-[3px] border-black bg-cream px-3 pb-4 pt-3 lg:hidden"
+    >
+      <div class="grid gap-2">
+        <a @click="mobileMenu=false" href="#about"
+           class="rounded-xl border-2 border-black bg-white px-4 py-3 font-black">
+          ABOUT
+        </a>
+
+        <a @click="mobileMenu=false" href="#tokenomics"
+           class="rounded-xl border-2 border-black bg-white px-4 py-3 font-black">
+          TOKENOMICS
+        </a>
+
+        <a @click="mobileMenu=false" href="#buy"
+           class="rounded-xl border-2 border-black bg-white px-4 py-3 font-black">
+          HOW TO BUY
+        </a>
+
+        <a @click="mobileMenu=false" href="#roadmap"
+           class="rounded-xl border-2 border-black bg-white px-4 py-3 font-black">
+          ROADMAP
+        </a>
+
+        <a @click="mobileMenu=false" href="#buy"
+           class="comic-btn mt-1 rounded-xl bg-gold px-4 py-4 text-center font-black">
+          BUY $MUSKCAT 🚀
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="home" class="relative overflow-hidden">
+      <div class="mx-auto max-w-6xl px-3 pb-12 pt-6 sm:px-5 md:pt-12">
+
+        <div class="grid gap-7 lg:grid-cols-2 lg:items-center">
+
+          <!-- TEXT -->
+          <div class="order-2 text-center lg:order-1 lg:text-left">
+
+            <div
+              class="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border-[3px] border-black bg-white px-3 py-2 comic-shadow lg:mx-0"
+            >
+              <span class="h-2.5 w-2.5 rounded-full bg-solGreen"></span>
+              <span class="text-[10px] font-black sm:text-xs">
+                SOLANA MEMECOIN
+              </span>
+            </div>
+
+            <h1
+              class="font-display text-[2.9rem] uppercase leading-[.88] tracking-[-.05em] sm:text-6xl lg:text-7xl"
+            >
+              MEET
+              <span class="text-gold2">MUSKCAT.</span>
+              <br />
+              THE MASKED
+              <span class="sol-text">SOLANA CAT.</span>
+            </h1>
+
+            <p
+              class="mx-auto mt-5 max-w-xl text-[15px] font-semibold leading-relaxed text-black/65 sm:text-lg lg:mx-0"
+            >
+              Born from meme culture. Built on Solana.
+              One cat. One mask. One global community.
+            </p>
+
+            <!-- CTA -->
+            <div class="mt-6 grid gap-3 sm:grid-cols-2 lg:max-w-lg">
+              <a
+                href="#buy"
+                class="comic-btn flex min-h-[56px] items-center justify-center gap-2 rounded-2xl bg-gold px-5 py-4 font-black"
+              >
+                BUY ON JUPITER 🚀
+              </a>
+
+              <a
+                href="#about"
+                class="comic-btn flex min-h-[56px] items-center justify-center rounded-2xl bg-white px-5 py-4 font-black"
+              >
+                MEET MUSKCAT ↓
+              </a>
+            </div>
+
+            <!-- CONTRACT -->
+            <div class="mx-auto mt-6 max-w-xl rounded-2xl border-[3px] border-black bg-white p-3 lg:mx-0">
+              <div class="mb-2 flex items-center justify-between">
+                <span class="text-[10px] font-black uppercase tracking-[.15em] text-black/45">
+                  Token Address
+                </span>
+
+                <span class="rounded-full sol-gradient px-3 py-1 text-[9px] font-black text-black">
+                  SOL
+                </span>
+              </div>
+
+              <div class="flex gap-2">
+                <div
+                  class="min-w-0 flex-1 overflow-hidden rounded-xl border-2 border-black bg-cream px-3 py-3 text-left font-mono text-[11px] font-bold"
+                >
+                  <span class="block truncate">
+                    YOUR_SOLANA_TOKEN_ADDRESS
+                  </span>
+                </div>
+
+                <button
+                  @click="copyContract()"
+                  class="comic-btn shrink-0 rounded-xl bg-gold px-4 text-xs font-black"
+                >
+                  <span x-text="copied ? '✓' : 'COPY'"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- LOGO / MASCOT -->
+          <div class="order-1 lg:order-2">
+            <div class="relative mx-auto max-w-[360px] sm:max-w-[440px] lg:max-w-[520px]">
+
+              <div class="absolute -left-2 top-8 z-20 rotate-[-9deg] rounded-xl border-[3px] border-black bg-black px-3 py-2 text-[10px] font-black text-white comic-shadow">
+                $MUSKCAT
+              </div>
+
+              <div class="absolute -right-2 top-3 z-20 rotate-6 rounded-xl border-[3px] border-black bg-gold px-3 py-2 text-[10px] font-black comic-shadow">
+                SOLANA
+              </div>
+
+              <div
+                class="float overflow-hidden rounded-[2rem] border-[4px] border-black bg-gold p-3 comic-shadow-lg"
+              >
+                <img
+                  src="muskcat-logo.png"
+                  alt="MUSKCAT masked cat logo"
+                  class="aspect-square w-full rounded-[1.45rem] object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TICKER -->
+    <section class="overflow-hidden border-y-[3px] border-black bg-black py-3 text-white">
+      <div class="ticker font-display text-sm sm:text-lg">
+        <div class="flex items-center">
+          <span class="mx-5">MUSKCAT</span><span>★</span>
+          <span class="mx-5">SOLANA</span><span>★</span>
+          <span class="mx-5">MEMES</span><span>★</span>
+          <span class="mx-5">MASKED CAT</span><span>★</span>
+        </div>
+
+        <div class="flex items-center">
+          <span class="mx-5">MUSKCAT</span><span>★</span>
+          <span class="mx-5">SOLANA</span><span>★</span>
+          <span class="mx-5">MEMES</span><span>★</span>
+          <span class="mx-5">MASKED CAT</span><span>★</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="mobile-section">
+      <div class="mx-auto max-w-6xl px-3 sm:px-5">
+
+        <div class="mb-8 text-center md:text-left">
+          <p class="mb-2 text-xs font-black uppercase tracking-[.2em] text-black/45">
+            01 / ABOUT
+          </p>
+
+          <h2 class="font-display text-4xl uppercase leading-[.9] sm:text-5xl">
+            WHY
+            <span class="inline-block rotate-[-2deg] bg-gold px-2">
+              MUSKCAT?
+            </span>
+          </h2>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2">
+
+          <article class="comic-card rounded-2xl bg-white p-5">
+            <div class="mb-4 text-3xl">🐱</div>
+            <h3 class="font-display text-xl uppercase">Original Meme Character</h3>
+            <p class="mt-2 text-sm font-medium leading-relaxed text-black/60">
+              A masked cat designed to be simple, recognizable, and meme-friendly.
+            </p>
+          </article>
+
+          <article class="comic-card rounded-2xl bg-gold p-5">
+            <div class="mb-4 text-3xl">⚡</div>
+            <h3 class="font-display text-xl uppercase">Built on Solana</h3>
+            <p class="mt-2 text-sm font-semibold leading-relaxed text-black/70">
+              Fast transactions and low fees for a fast-moving meme community.
+            </p>
+          </article>
+
+          <article class="comic-card rounded-2xl bg-soft p-5">
+            <div class="mb-4 text-3xl">🌍</div>
+            <h3 class="font-display text-xl uppercase">Made for the Internet</h3>
+            <p class="mt-2 text-sm font-medium leading-relaxed text-black/60">
+              Designed for global meme culture, social media, and community content.
+            </p>
+          </article>
+
+          <article class="comic-card rounded-2xl bg-black p-5 text-white">
+            <div class="mb-4 text-3xl">👑</div>
+            <h3 class="font-display text-xl uppercase text-gold">Community First</h3>
+            <p class="mt-2 text-sm font-medium leading-relaxed text-white/60">
+              The brand grows through memes, replies, art, and participation.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKENOMICS -->
+    <section id="tokenomics" class="mobile-section border-y-[3px] border-black bg-gold">
+      <div class="mx-auto max-w-6xl px-3 sm:px-5">
+
+        <div class="mb-8 text-center">
+          <p class="mb-2 text-xs font-black uppercase tracking-[.2em]">
+            02 / TOKENOMICS
+          </p>
+
+          <h2 class="font-display text-4xl uppercase leading-[.9] sm:text-5xl">
+            SIMPLE
+            <br />
+            MUSKNOMICS.
+          </h2>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-3">
+
+          <div class="comic-card rounded-2xl bg-white p-5 text-center">
+            <p class="text-xs font-black uppercase text-black/45">Supply</p>
+            <p class="mt-2 font-display text-3xl">1B</p>
+            <p class="mt-1 text-sm font-black">$MUSKCAT</p>
+          </div>
+
+          <div class="comic-card rounded-2xl bg-white p-5 text-center">
+            <p class="text-xs font-black uppercase text-black/45">Network</p>
+            <p class="mt-2 font-display text-3xl sol-text">SOLANA</p>
+          </div>
+
+          <div class="comic-card rounded-2xl bg-black p-5 text-center text-white">
+            <p class="text-xs font-black uppercase text-white/45">Focus</p>
+            <p class="mt-2 font-display text-2xl text-gold">COMMUNITY</p>
+          </div>
+
+        </div>
+
+        <div class="mt-5 rounded-2xl border-[3px] border-black bg-white p-4">
+          <p class="text-sm font-bold leading-relaxed">
+            Replace all supply, allocation, token address, LP and launch information
+            with verified on-chain data before publishing.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TO BUY -->
+    <section id="buy" class="mobile-section">
+      <div class="mx-auto max-w-6xl px-3 sm:px-5">
+
+        <div class="mb-8 text-center">
+          <p class="mb-2 text-xs font-black uppercase tracking-[.2em] text-black/45">
+            03 / HOW TO BUY
+          </p>
+
+          <h2 class="font-display text-4xl uppercase leading-[.9] sm:text-5xl">
+            GET
+            <span class="bg-gold px-2">$MUSKCAT</span>
+          </h2>
+        </div>
+
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+
+          <article class="comic-card rounded-2xl bg-white p-5">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border-[3px] border-black bg-gold text-xl">
+              01
+            </div>
+
+            <h3 class="font-display text-lg uppercase">
+              Get a Wallet
+            </h3>
+
+            <p class="mt-2 text-sm font-medium leading-relaxed text-black/60">
+              Install Phantom or another Solana-compatible wallet.
+            </p>
+          </article>
+
+          <article class="comic-card rounded-2xl bg-white p-5">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border-[3px] border-black bg-gold text-xl">
+              02
+            </div>
+
+            <h3 class="font-display text-lg uppercase">
+              Get SOL
+            </h3>
+
+            <p class="mt-2 text-sm font-medium leading-relaxed text-black/60">
+              Buy SOL and send it to your wallet.
+            </p>
+          </article>
+
+          <article class="comic-card rounded-2xl bg-white p-5">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border-[3px] border-black bg-gold text-xl">
+              03
+            </div>
+
+            <h3 class="font-display text-lg uppercase">
+              Open Jupiter
+            </h3>
+
+            <p class="mt-2 text-sm font-medium leading-relaxed text-black/60">
+              Connect your wallet to Jupiter.
+            </p>
+          </article>
+
+          <article class="comic-card rounded-2xl bg-black p-5 text-white">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border-[3px] border-white bg-gold text-xl text-black">
+              04
+            </div>
+
+            <h3 class="font-display text-lg uppercase">
+              Swap
+            </h3>
+
+            <p class="mt-2 text-sm font-medium leading-relaxed text-white/60">
+              Paste the verified contract and swap SOL for $MUSKCAT.
+            </p>
+          </article>
+
+        </div>
+
+        <a
+          href="#"
+          onclick="event.preventDefault(); alert('Add your official Jupiter link here.');"
+          class="comic-btn mt-7 flex min-h-[58px] w-full items-center justify-center rounded-2xl bg-gold px-6 py-4 font-display text-lg md:mx-auto md:max-w-sm"
+        >
+          BUY ON JUPITER 🚀
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section id="roadmap" class="mobile-section border-y-[3px] border-black bg-black text-white">
+      <div class="mx-auto max-w-6xl px-3 sm:px-5">
+
+        <div class="mb-8 text-center">
+          <p class="mb-2 text-xs font-black uppercase tracking-[.2em] text-white/45">
+            04 / ROADMAP
+          </p>
+
+          <h2 class="font-display text-4xl uppercase leading-[.9] sm:text-5xl">
+            THE CAT
+            <span class="text-gold">HAS A PLAN.</span>
+          </h2>
+        </div>
+
+        <div class="grid gap-4 lg:grid-cols-3">
+
+          <article class="rounded-2xl border-[3px] border-white bg-white p-5 text-black">
+            <p class="text-xs font-black uppercase text-black/45">Phase 01</p>
+            <h3 class="mt-2 font-display text-xl uppercase">Launch</h3>
+            <p class="mt-3 text-sm font-medium leading-relaxed text-black/60">
+              Brand, website, X, Telegram and community launch.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border-[3px] border-white bg-gold p-5 text-black">
+            <p class="text-xs font-black uppercase text-black/45">Phase 02</p>
+            <h3 class="mt-2 font-display text-xl uppercase">Solana Growth</h3>
+            <p class="mt-3 text-sm font-semibold leading-relaxed text-black/70">
+              Jupiter visibility, Dexscreener tracking, memes and partnerships.
+            </p>
+          </article>
+
+          <article class="rounded-2xl border-[3px] border-white bg-white p-5 text-black">
+            <p class="text-xs font-black uppercase text-black/45">Phase 03</p>
+            <h3 class="mt-2 font-display text-xl uppercase">Global Cat</h3>
+            <p class="mt-3 text-sm font-medium leading-relaxed text-black/60">
+              More communities, more content and wider global reach.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="mobile-section">
+      <div class="mx-auto max-w-6xl px-3 sm:px-5">
+        <div class="comic-card rounded-[2rem] bg-gold p-6 text-center sm:p-10">
+
+          <img
+            src="muskcat-logo.png"
+            alt="MUSKCAT"
+            class="mx-auto h-24 w-24 rounded-full border-[3px] border-black object-cover sm:h-28 sm:w-28"
+          />
+
+          <h2 class="mt-5 font-display text-3xl uppercase leading-[.9] sm:text-5xl">
+            JOIN THE
+            <br />
+            MASKED CAT.
+          </h2>
+
+          <p class="mx-auto mt-4 max-w-xl text-sm font-semibold text-black/65 sm:text-base">
+            Follow the community, make memes, and verify the contract before trading.
+          </p>
+
+          <a
+            href="#buy"
+            class="comic-btn mt-6 inline-flex min-h-[56px] items-center justify-center rounded-2xl bg-black px-7 py-4 font-black text-white"
+          >
+            GET $MUSKCAT
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t-[3px] border-black bg-black px-3 py-10 text-white sm:px-5">
+    <div class="mx-auto max-w-6xl">
+
+      <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
+
+        <div class="flex items-center gap-3">
+          <img
+            src="muskcat-logo.png"
+            alt="MUSKCAT"
+            class="h-12 w-12 rounded-full border-2 border-white object-cover"
+          />
+
+          <div>
+            <div class="font-display text-xl">MUSKCAT</div>
+            <div class="text-[10px] font-black tracking-[.18em] text-white/40">
+              $MUSKCAT • SOLANA
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <a href="#" class="rounded-xl border-2 border-white/25 px-4 py-3 font-black">
+            𝕏
+          </a>
+
+          <a href="#" class="rounded-xl border-2 border-white/25 px-4 py-3 font-black">
+            TG
+          </a>
+
+          <a href="#" class="rounded-xl border-2 border-white/25 px-4 py-3 text-xs font-black">
+            DEX
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-7 border-t border-white/15 pt-5 text-center text-[11px] font-bold text-white/40 sm:text-left">
+        © 2026 MUSKCAT. Meme token on Solana. Not financial advice.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function muskcatApp() {
+      return {
+        mobileMenu: false,
+        copied: false,
+        contract: "YOUR_SOLANA_TOKEN_ADDRESS",
+
+        async copyContract() {
+          try {
+            await navigator.clipboard.writeText(this.contract);
+            this.copied = true;
+
+            setTimeout(() => {
+              this.copied = false;
+            }, 1500);
+          } catch (e) {
+            alert(this.contract);
+          }
+        }
+      };
+    }
+  </script>
+
+</body>
+</html>
