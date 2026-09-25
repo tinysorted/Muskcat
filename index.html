@@ -4,8 +4,8 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#070807"/>
-<title>MUSKCAT — Solana Launch Terminal</title>
-<meta name="description" content="MUSKCAT Solana launch discovery, whale radar and Telegram execution terminal."/>
+<title>MUSKCAT — Professional Solana Launch Intelligence Terminal</title>
+<meta name="description" content="MUSKCAT is a professional Solana launch intelligence terminal for token discovery, wallet activity monitoring, Telegram execution workflows, and future cross-chain utility."/>
 <style>
 :root{
   --bg:#070807;--panel:#0d0f0d;--panel2:#111410;--soft:#171b16;--line:#242a22;
@@ -50,21 +50,21 @@ footer{border-top:1px solid var(--line);padding:22px 0 34px;color:#6e786b;font-s
 
 <header class="top"><div class="shell topin">
 <a class="brand" href="#"><span class="mark"><svg class="icon"><use href="#i-cat"/></svg></span>MUSKCAT</a>
-<nav class="nav"><a class="active" href="#terminal">Terminal</a><a href="#tokens">New tokens</a><a href="#whales">Whale radar</a><a href="#bridge">Bridge</a><a href="#roadmap">Roadmap</a></nav>
-<div class="right"><div class="chainPill"><span class="dot"></span>Solana mainnet</div><button class="wallet" id="walletBtn">Connect wallet</button></div>
+<nav class="nav"><a class="active" href="#terminal">Terminal</a><a href="#tokens">New tokens</a><a href="#whales">Whale Activity</a><a href="#bridge">Bridge</a><a href="#roadmap">Roadmap</a></nav>
+<div class="right"><div class="chainPill"><span class="dot"></span>Solana Mainnet</div><button class="wallet" id="walletBtn">Connect Wallet</button></div>
 </div></header>
 
 <main>
 <section id="terminal" class="shell hero">
 <div>
-<div class="eyebrow"><span class="dot"></span>Solana launch discovery terminal</div>
-<h1>SEE IT EARLY.<br><span>MOVE FAST.</span></h1>
-<p class="lead">Discover newly launched Solana tokens, review activity, monitor large wallets and hand execution to your Telegram sniper from one focused interface.</p>
-<div class="heroActions"><a class="action primary" href="#tokens"><svg class="icon"><use href="#i-grid"/></svg>Open terminal</a><a class="action" id="tgHero" href="#" target="_blank" rel="noopener"><svg class="icon"><use href="#i-send"/></svg>Telegram sniper</a></div>
+<div class="eyebrow"><span class="dot"></span>Solana Launch Discovery Terminal</div>
+<h1>DISCOVER EARLY.<br><span>EXECUTE WITH CONFIDENCE.</span></h1>
+<p class="lead">Discover newly launched Solana tokens, review market activity, monitor large wallets, and route selected opportunities to your Telegram execution bot from a single professional interface.</p>
+<div class="heroActions"><a class="action primary" href="#tokens"><svg class="icon"><use href="#i-grid"/></svg>Open Terminal</a><a class="action" id="tgHero" href="#" target="_blank" rel="noopener"><svg class="icon"><use href="#i-send"/></svg>Telegram Execution Channel</a></div>
 </div>
 <div class="heroCard">
 <div class="orb"></div><div class="orbit"></div><div class="cat"><svg class="icon"><use href="#i-cat"/></svg></div><div class="rocket"></div>
-<div class="heroStats"><div class="hstat"><small>Feed</small><b id="heroFeed">Connecting…</b></div><div class="hstat"><small>Refresh</small><b>5 seconds</b></div><div class="hstat"><small>Execution</small><b>Telegram</b></div></div>
+<div class="heroStats"><div class="hstat"><small>Data Source</small><b id="heroData Source">Connecting…</b></div><div class="hstat"><small>Refresh Interval</small><b>5 Seconds</b></div><div class="hstat"><small>Execution Channel</small><b>Telegram</b></div></div>
 </div>
 </section>
 
@@ -72,42 +72,42 @@ footer{border-top:1px solid var(--line);padding:22px 0 34px;color:#6e786b;font-s
 <div class="statusitem"><span class="badge">LIVE</span> Solana</div>
 <div class="statusitem"><span class="badge road">ROADMAP</span> Robinhood</div>
 <div class="statusitem"><span class="badge road">ROADMAP</span> Arc</div>
-<div class="statusitem">Bridge scope: SOL ↔ ETH</div>
-<div class="statusitem">Protocol fee utility: MUSKCAT</div>
+<div class="statusitem">Bridge Scope: SOL ↔ ETH</div>
+<div class="statusitem">Protocol Fee Utility: MUSKCAT</div>
 </div></div>
 
 <section id="tokens" class="shell section">
 <div class="sectionHead">
-<div class="title"><span class="titleIcon"><svg class="icon"><use href="#i-grid"/></svg></span><div><h2>New launches</h2><div class="sub"><span id="feedState">Connecting to Pump.fun…</span></div></div></div>
-<div class="filters"><input class="control search" id="search" placeholder="Search token or mint"/><select class="control" id="sort"><option value="new">Newest</option><option value="mc">Market cap</option><option value="bond">Bonding</option></select></div>
+<div class="title"><span class="titleIcon"><svg class="icon"><use href="#i-grid"/></svg></span><div><h2>New Token Launches</h2><div class="sub"><span id="feedState">Connecting to the Pump.fun token feed…</span></div></div></div>
+<div class="filters"><input class="control search" id="search" placeholder="Search by token name or mint address"/><select class="control" id="sort"><option value="new">Newest</option><option value="mc">Market Capitalization</option><option value="bond">Bonding Progress</option></select></div>
 </div>
 <div class="tableWrap"><table class="table">
-<thead><tr><th>Token</th><th>Age</th><th>Market cap</th><th>Bonding</th><th>Creator</th><th>Mint</th><th style="text-align:right">Actions</th></tr></thead>
+<thead><tr><th>Token</th><th>Age</th><th>Market Capitalization</th><th>Bonding Progress</th><th>Creator Wallet</th><th>Mint Address</th><th style="text-align:right">Actions</th></tr></thead>
 <tbody id="tokenRows"><tr><td colspan="7" class="loading">Loading token feed…</td></tr></tbody>
 </table></div>
 </section>
 
 <section class="shell section grid2">
-<div id="whales" class="panel"><div class="panelHead"><div class="panelTitle"><svg class="icon"><use href="#i-radar"/></svg>Whale radar</div><span class="sub">Activity view</span></div><div class="panelBody whaleRows" id="whaleRows"></div></div>
-<div id="bridge" class="panel"><div class="panelHead"><div class="panelTitle"><svg class="icon"><use href="#i-bridge"/></svg>MUSKCAT bridge</div><span class="badge road">ROADMAP</span></div><div class="panelBody bridgeGrid">
+<div id="whales" class="panel"><div class="panelHead"><div class="panelTitle"><svg class="icon"><use href="#i-radar"/></svg>Whale Activity</div><span class="sub">Recent Large-Wallet Activity</span></div><div class="panelBody whaleRows" id="whaleRows"></div></div>
+<div id="bridge" class="panel"><div class="panelHead"><div class="panelTitle"><svg class="icon"><use href="#i-bridge"/></svg>MUSKCAT Bridge</div><span class="badge road">ROADMAP</span></div><div class="panelBody bridgeGrid">
 <div class="swap"><div class="swapLabel"><span>From</span><span>Solana</span></div><div class="swapMain"><div class="net"><span class="coin">S</span>MUSKCAT</div><div class="amt">1,000</div></div></div>
 <div class="swap"><div class="swapLabel"><span>To</span><span>Ethereum</span></div><div class="swapMain"><div class="net"><span class="coin">E</span>MUSKCAT</div><div class="amt">≈ 998.2</div></div></div>
-<div class="feeRow"><span>Network gas</span><b>SOL / ETH</b></div><div class="feeRow"><span>Protocol fee</span><b>MUSKCAT</b></div>
-<button class="action primary wide" onclick="toast('Bridge is roadmap-only. No transaction was sent.')"><svg class="icon"><use href="#i-bridge"/></svg>Bridge MUSKCAT</button>
-<div class="notice">Native network gas remains SOL or ETH. MUSKCAT is shown here as protocol-fee utility, not as a replacement for native gas.</div>
+<div class="feeRow"><span>Network Fee</span><b>SOL / ETH</b></div><div class="feeRow"><span>Protocol Fee</span><b>MUSKCAT</b></div>
+<button class="action primary wide" onclick="toast('The bridge is currently in roadmap mode. No transaction has been submitted.')"><svg class="icon"><use href="#i-bridge"/></svg>Bridge MUSKCAT</button>
+<div class="notice">Native network fees remain payable in SOL or ETH. MUSKCAT is presented as a protocol-fee utility token and does not replace native network gas.</div>
 </div></div>
 </section>
 
-<section id="roadmap" class="shell section"><div class="sectionHead"><div class="title"><span class="titleIcon"><svg class="icon"><use href="#i-radar"/></svg></span><div><h2>Product roadmap</h2><div class="sub">Solana first. Multichain after the core terminal is stable.</div></div></div></div>
+<section id="roadmap" class="shell section"><div class="sectionHead"><div class="title"><span class="titleIcon"><svg class="icon"><use href="#i-radar"/></svg></span><div><h2>Product Roadmap</h2><div class="sub">Solana-first development, followed by multichain expansion after the core terminal is stable.</div></div></div></div>
 <div class="cards">
-<div class="roadCard"><div class="step">PHASE 01 · ACTIVE</div><h3>Solana terminal</h3><p>New launch discovery</p><p>Telegram execution handoff</p><p>Wallet activity monitoring</p></div>
-<div class="roadCard"><div class="step">PHASE 02</div><h3>MUSKCAT utility</h3><p>Protocol-fee utility</p><p>Premium terminal features</p><p>Holder access layer</p></div>
-<div class="roadCard"><div class="step">PHASE 03</div><h3>SOL ↔ ETH bridge</h3><p>Cross-chain MUSKCAT utility</p><p>Wallet-first UX</p><p>Clear native gas handling</p></div>
-<div class="roadCard"><div class="step">PHASE 04</div><h3>Multichain expansion</h3><p>Robinhood roadmap</p><p>Arc roadmap</p><p>Cross-chain discovery</p></div>
+<div class="roadCard"><div class="step">PHASE 01 · ACTIVE</div><h3>Solana Terminal</h3><p>New Token Discovery</p><p>Telegram Execution Channel Handoff</p><p>Wallet Activity Monitoring</p></div>
+<div class="roadCard"><div class="step">PHASE 02</div><h3>MUSKCAT Utility</h3><p>Protocol Fee Utility</p><p>Premium Terminal Features</p><p>Holder Access Layer</p></div>
+<div class="roadCard"><div class="step">PHASE 03</div><h3>SOL ↔ ETH Bridge</h3><p>Cross-chain MUSKCAT Utility</p><p>Wallet-First User Experience</p><p>Transparent Native Gas Handling</p></div>
+<div class="roadCard"><div class="step">PHASE 04</div><h3>Multichain Expansion</h3><p>Robinhood Integration Roadmap</p><p>Arc Integration Roadmap</p><p>Cross-Chain Discovery</p></div>
 </div></section>
 </main>
 
-<footer><div class="shell footer"><strong>MUSKCAT © 2026</strong><span>Solana live focus · Robinhood & Arc roadmap</span><span>New tokens are highly speculative. Verify contracts before trading.</span></div></footer>
+<footer><div class="shell footer"><strong>MUSKCAT © 2026</strong><span>Solana live focus · Robinhood & Arc Integration Roadmap</span><span>Newly launched tokens are highly speculative. Always verify contract details and conduct independent due diligence before trading.</span></div></footer>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -157,37 +157,37 @@ async function load(){
 }
 function render(){
  const live=state.source==="live";
- $("#feedState").innerHTML=live?`<span class="liveText">Live Pump.fun feed</span> · refreshed every 5s`:`<span class="demoText">Fallback demo</span> · Pump.fun endpoint unavailable`;
- $("#heroFeed").textContent=live?"Pump.fun LIVE":"Fallback demo";
+ $("#feedState").innerHTML=live?`<span class="liveText">Live Pump.fun Data Source</span> · refreshed every 5s`:`<span class="demoText">Demonstration Fallback</span> · Pump.fun endpoint unavailable`;
+ $("#heroData Source").textContent=live?"Pump.fun LIVE":"Demonstration Fallback";
  let q=$("#search").value.trim().toLowerCase(),sort=$("#sort").value;
  let a=state.tokens.filter(t=>!q||t.name.toLowerCase().includes(q)||t.symbol.toLowerCase().includes(q)||t.mint.toLowerCase().includes(q));
  if(sort==="mc")a.sort((x,y)=>y.mc-x.mc); if(sort==="bond")a.sort((x,y)=>y.bond-x.bond);
  $("#tokenRows").innerHTML=a.slice(0,20).map(t=>`<tr>
  <td><div class="tokenCell">${t.image?`<img class="tokenImg" src="${esc(t.image)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">`:`<div class="tokenImg tokenFallback">${esc((t.symbol||"?")[0])}</div>`}<div><div class="name">${esc(t.name)}</div><div class="sym">${esc(t.symbol)}</div></div></div></td>
  <td><span class="age"><span class="pulse"></span>${ago(t.created)}</span></td>
- <td class="metric"><b>${t.mc?money(t.mc):"—"}</b><span>estimated</span></td>
+ <td class="metric"><b>${t.mc?money(t.mc):"—"}</b><span>Estimated</span></td>
  <td><b>${t.bond.toFixed(0)}%</b><div class="bar"><i style="width:${t.bond}%"></i></div></td>
  <td class="walletAddr">${esc(short(t.creator,4))}</td><td class="walletAddr">${esc(short(t.mint,4))}</td>
- <td><div class="rowActions"><button class="iconBtn" title="Copy mint" onclick="copyMint('${esc(t.mint)}')">${svg("i-copy")}</button><button class="iconBtn" title="Open Pump.fun" onclick="openPump('${esc(t.mint)}')">${svg("i-out")}</button><button class="snipeBtn" onclick="snipe('${esc(t.mint)}')">${svg("i-send")}Snipe</button></div></td></tr>`).join("")||`<tr><td colspan="7" class="loading">No matching tokens</td></tr>`;
+ <td><div class="rowActions"><button class="iconBtn" title="Copy Mint Address" onclick="copyMint Address('${esc(t.mint)}')">${svg("i-copy")}</button><button class="iconBtn" title="Open on Pump.fun" onclick="openPump('${esc(t.mint)}')">${svg("i-out")}</button><button class="snipeBtn" onclick="snipe('${esc(t.mint)}')">${svg("i-send")}Execute</button></div></td></tr>`).join("")||`<tr><td colspan="7" class="loading">No matching tokens</td></tr>`;
  renderWhales(a);
 }
 function renderWhales(a){
  const rows=(a.length?a:state.tokens).slice(0,6).map((t,i)=>({time:(i*7+4)+"s",wallet:short(t.creator||t.mint,4),act:i===4?"SELL":"BUY",token:t.symbol,sol:(7.4+i*5.7).toFixed(1)}));
  $("#whaleRows").innerHTML=rows.map(w=>`<div class="whale"><span>${w.time}</span><span class="walletAddr">${esc(w.wallet)}</span><b class="${w.act==="BUY"?"green":"red"}">${w.act}</b><span>${esc(w.token)}</span><b class="hideM">${w.sol} SOL</b></div>`).join("");
 }
-function copyMint(m){if(!m)return toast("Mint unavailable");navigator.clipboard?.writeText(m).then(()=>toast("Mint copied")).catch(()=>toast(m))}
-function openPump(m){if(!m||m.startsWith("DEMO"))return toast("Live mint unavailable in demo mode");window.open("https://pump.fun/coin/"+encodeURIComponent(m),"_blank","noopener")}
+function copyMint Address(m){if(!m)return toast("Mint Address unavailable");navigator.clipboard?.writeText(m).then(()=>toast("Mint Address copied")).catch(()=>toast(m))}
+function openPump(m){if(!m||m.startsWith("DEMO"))return toast("A live mint address is unavailable while demonstration mode is active.");window.open("https://pump.fun/coin/"+encodeURIComponent(m),"_blank","noopener")}
 function snipe(m){
- if(!m||m.startsWith("DEMO"))return toast("Sniper disabled for demo data");
- if(CONFIG.TELEGRAM.includes("YOUR_MUSKCAT_BOT"))return toast("Add your Telegram bot username in CONFIG.TELEGRAM");
+ if(!m||m.startsWith("DEMO"))return toast("Executer disabled for demo data");
+ if(CONFIG.TELEGRAM.includes("YOUR_MUSKCAT_BOT"))return toast("Configure your Telegram bot URL in CONFIG.TELEGRAM before using execution.");
  window.open(CONFIG.TELEGRAM+"?start="+encodeURIComponent(m),"_blank","noopener");
 }
 function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove("show"),2400)}
 async function connect(){
  try{
-   if(window.solana?.isPhantom){let r=await window.solana.connect();let k=r.publicKey.toString();$("#walletBtn").textContent=short(k,4);toast("Wallet connected");}
-   else{window.open("https://phantom.app/","_blank","noopener");toast("Open with a Solana wallet browser to connect");}
- }catch(e){toast("Wallet connection cancelled")}
+   if(window.solana?.isPhantom){let r=await window.solana.connect();let k=r.publicKey.toString();$("#walletBtn").textContent=short(k,4);toast("Wallet connected successfully.");}
+   else{window.open("https://phantom.app/","_blank","noopener");toast("Open this page in a compatible Solana wallet browser to connect.");}
+ }catch(e){toast("Wallet connection was cancelled.")}
 }
 $("#walletBtn").onclick=connect;$("#search").oninput=render;$("#sort").onchange=render;$("#tgHero").href=CONFIG.TELEGRAM;
 load();setInterval(load,CONFIG.REFRESH_MS);
