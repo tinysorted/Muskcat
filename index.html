@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="theme-color" content="#070807"/>
+<title>MUSKCAT — Solana Launch Terminal</title>
+<meta name="description" content="MUSKCAT Solana launch discovery, whale radar and Telegram execution terminal."/>
+<style>
+:root{
+  --bg:#070807;--panel:#0d0f0d;--panel2:#111410;--soft:#171b16;--line:#242a22;
+  --text:#f4f6ef;--muted:#8d9688;--brand:#dfff36;--green:#58e88b;--red:#ff6b70;--blue:#85c7ff;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:
+radial-gradient(900px 420px at 50% -220px,rgba(223,255,54,.12),transparent 70%),var(--bg);
+color:var(--text);font:14px/1.45 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}a{color:inherit;text-decoration:none}.shell{width:min(1440px,calc(100% - 28px));margin:auto}
+.icon{width:18px;height:18px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.top{position:sticky;top:0;z-index:60;background:rgba(7,8,7,.86);backdrop-filter:blur(22px);border-bottom:1px solid rgba(255,255,255,.06)}
+.topin{height:68px;display:flex;align-items:center;gap:28px}.brand{display:flex;align-items:center;gap:10px;font-weight:850;letter-spacing:-.4px;font-size:18px}.mark{width:34px;height:34px;border:1px solid #394132;border-radius:11px;display:grid;place-items:center;background:#11140f}.mark svg{color:var(--brand)}
+.nav{display:flex;gap:6px;flex:1}.nav a{padding:9px 11px;border-radius:9px;color:#aab1a4;font-size:13px}.nav a:hover,.nav a.active{background:#121510;color:white}.right{display:flex;align-items:center;gap:8px}.chainPill{display:flex;align-items:center;gap:7px;padding:9px 11px;border:1px solid var(--line);border-radius:11px;color:#bcc3b7;font-size:12px}.dot{width:7px;height:7px;border-radius:99px;background:var(--green);box-shadow:0 0 14px rgba(88,232,139,.7)}.wallet{border:0;border-radius:11px;background:var(--brand);color:#11130d;font-weight:800;padding:11px 14px}.mobileOnly{display:none}
+.hero{padding:54px 0 30px;display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:99px;padding:7px 10px;color:#aeb7aa;font-size:11px}.hero h1{font-size:clamp(50px,7vw,104px);line-height:.88;letter-spacing:-5.4px;margin:18px 0 20px;max-width:900px}.hero h1 span{color:var(--brand)}.lead{font-size:16px;color:#a7b0a2;max-width:650px}.heroActions{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}.action{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:11px;padding:12px 15px;border:1px solid var(--line);background:#0f120f;color:white;font-weight:700}.action.primary{background:var(--brand);border-color:var(--brand);color:#11130d}
+.heroCard{border:1px solid var(--line);background:linear-gradient(180deg,#111510,#0c0f0c);border-radius:22px;padding:18px;min-height:360px;position:relative;overflow:hidden}.orb{position:absolute;width:260px;height:260px;border-radius:50%;right:-40px;top:-42px;background:radial-gradient(circle at 35% 30%,#ecf0cc 0,#848b74 44%,#2e332c 73%,#10120f 100%);box-shadow:-60px 80px 120px rgba(223,255,54,.08)}.orbit{position:absolute;border:1px solid rgba(223,255,54,.15);border-radius:50%;width:460px;height:190px;right:-110px;top:90px;transform:rotate(-17deg)}.rocket{position:absolute;right:24%;top:43%;width:154px;height:56px;border-radius:50px 70px 70px 50px;background:linear-gradient(180deg,#f4f4ea,#82877c);transform:rotate(-17deg);box-shadow:0 18px 45px #000}.rocket:before{content:"";position:absolute;width:55px;height:34px;background:linear-gradient(90deg,transparent,#ffc928,#ff7c19);filter:blur(8px);left:-38px;top:12px}.rocket:after{content:"MUSKCAT";position:absolute;color:#171914;font-weight:900;font-size:13px;left:43px;top:19px;letter-spacing:.7px}.cat{position:absolute;right:50%;top:34%;width:76px;height:76px;border-radius:50%;background:#171c15;border:1px solid #3e4938;display:grid;place-items:center;z-index:3}.cat svg{width:48px;height:48px;color:var(--brand)}.heroStats{position:absolute;left:18px;bottom:18px;display:grid;grid-template-columns:repeat(3,1fr);width:calc(100% - 36px);gap:8px}.hstat{background:rgba(7,8,7,.76);backdrop-filter:blur(10px);border:1px solid #242b20;border-radius:12px;padding:11px}.hstat small{color:var(--muted);font-size:10px}.hstat b{display:block;margin-top:3px;font-size:13px}
+.statusbar{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#0a0c0a}.statusin{height:48px;display:flex;align-items:center;gap:20px;overflow:auto}.statusitem{display:flex;align-items:center;gap:7px;white-space:nowrap;color:#9ba596;font-size:11px}.badge{font-size:9px;font-weight:800;border-radius:6px;padding:3px 6px;background:#182016;color:var(--green)}.badge.road{background:#181a18;color:#858b82}
+.section{padding:34px 0}.sectionHead{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;margin-bottom:16px}.title{display:flex;align-items:center;gap:10px}.titleIcon{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#10130f;display:grid;place-items:center;color:var(--brand)}h2{font-size:24px;letter-spacing:-.8px;margin:0} .sub{font-size:11px;color:var(--muted);margin-top:2px}
+.filters{display:flex;gap:8px;flex-wrap:wrap}.control{height:39px;border:1px solid var(--line);background:#0d100d;color:#dfe3dc;border-radius:10px;padding:0 11px;outline:none}.search{width:250px}
+.tableWrap{border:1px solid var(--line);border-radius:16px;background:#0b0e0b;overflow:hidden}.table{width:100%;border-collapse:collapse}.table th{font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:#717b6d;font-weight:700;text-align:left;padding:11px 13px;border-bottom:1px solid var(--line)}.table td{padding:12px 13px;border-bottom:1px solid #171b16;vertical-align:middle}.table tr:last-child td{border-bottom:0}.table tbody tr:hover{background:#0f120f}.tokenCell{display:flex;align-items:center;gap:10px}.tokenImg{width:38px;height:38px;border-radius:10px;background:#171b16;border:1px solid #252b22;object-fit:cover}.tokenFallback{display:grid;place-items:center;color:var(--brand);font-weight:900}.name{font-weight:760}.sym{font-size:10px;color:#778174;margin-top:1px}.age{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#b9c1b4}.pulse{width:6px;height:6px;background:var(--brand);border-radius:50%;box-shadow:0 0 10px var(--brand)}.metric b{display:block;font-size:12px}.metric span{font-size:10px;color:#6f796c}.bar{width:76px;height:5px;border-radius:99px;background:#1a2018;overflow:hidden;margin-top:5px}.bar i{height:100%;display:block;background:var(--brand)}.rowActions{display:flex;gap:6px;justify-content:flex-end}.iconBtn{width:35px;height:35px;border-radius:9px;border:1px solid var(--line);background:#0e110e;color:#b7c0b2;display:grid;place-items:center}.iconBtn:hover{color:white;border-color:#41493b}.snipeBtn{height:35px;border-radius:9px;border:0;background:var(--brand);color:#11130d;font-weight:800;padding:0 11px;display:flex;align-items:center;gap:7px}
+.grid2{display:grid;grid-template-columns:1.3fr .7fr;gap:14px}.panel{border:1px solid var(--line);border-radius:16px;background:#0b0e0b;overflow:hidden}.panelHead{padding:15px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.panelTitle{display:flex;align-items:center;gap:9px;font-weight:760}.panelBody{padding:15px}.whaleRows{display:grid}.whale{display:grid;grid-template-columns:80px 1fr 75px 1fr 90px;gap:8px;padding:11px 2px;border-bottom:1px solid #171b16;align-items:center;font-size:11px}.whale:last-child{border-bottom:0}.walletAddr{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#acb6a8}.green{color:var(--green)}.red{color:var(--red)}
+.bridgeGrid{display:grid;gap:8px}.swap{border:1px solid var(--line);background:#101410;border-radius:13px;padding:13px}.swapLabel{display:flex;justify-content:space-between;color:#788373;font-size:10px}.swapMain{display:flex;align-items:center;justify-content:space-between;margin-top:8px}.net{display:flex;align-items:center;gap:8px;font-weight:760}.coin{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#151c14;border:1px solid #283325}.amt{font-size:23px;font-weight:800}.feeRow{display:flex;justify-content:space-between;font-size:10px;color:#808b7d;padding:1px 2px}.wide{width:100%;margin-top:8px}.notice{font-size:10px;color:#717b6e;margin-top:10px;line-height:1.5}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.roadCard{border:1px solid var(--line);border-radius:15px;padding:16px;background:#0c0f0c}.step{font-size:10px;color:var(--brand);font-weight:800;letter-spacing:.7px}.roadCard h3{font-size:16px;margin:8px 0}.roadCard p{font-size:11px;color:#858f82;margin:7px 0}
+footer{border-top:1px solid var(--line);padding:22px 0 34px;color:#6e786b;font-size:10px}.footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.toast{position:fixed;right:16px;bottom:16px;z-index:100;border:1px solid #30382c;background:#111510;border-radius:12px;padding:11px 13px;color:#dfe5db;box-shadow:0 18px 60px #0008;opacity:0;transform:translateY(12px);transition:.2s;pointer-events:none}.toast.show{opacity:1;transform:none}
+.loading{padding:32px;text-align:center;color:#798275}.liveText{color:var(--green)}.demoText{color:#e6ba5d}
+@media(max-width:1040px){.nav{display:none}.hero{grid-template-columns:1fr}.heroCard{min-height:320px}.grid2{grid-template-columns:1fr}.cards{grid-template-columns:1fr 1fr}.tableWrap{overflow:auto}.table{min-width:920px}.mobileOnly{display:grid}.chainPill{display:none}}
+@media(max-width:640px){.shell{width:calc(100% - 18px)}.topin{height:60px;gap:10px}.brand{flex:1}.wallet{padding:9px 11px;font-size:11px}.hero{padding:32px 0 22px}.hero h1{font-size:50px;letter-spacing:-3.2px}.lead{font-size:14px}.heroCard{min-height:270px}.orb{width:210px;height:210px}.rocket{right:18%;top:45%;transform:rotate(-17deg) scale(.82)}.cat{right:52%;top:35%;transform:scale(.86)}.heroStats{grid-template-columns:1fr}.hstat:nth-child(2),.hstat:nth-child(3){display:none}.sectionHead{align-items:flex-start;flex-direction:column}.filters{width:100%}.search{width:100%}.control{flex:1}.cards{grid-template-columns:1fr}.whale{grid-template-columns:55px 1fr 62px 80px}.whale .hideM{display:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+<symbol id="i-cat" viewBox="0 0 24 24"><path d="M5 8 4 3l5 3h6l5-3-1 5v7a7 7 0 0 1-14 0Z"/><path d="M9 13h.01M15 13h.01M9.5 17c1.4 1 3.6 1 5 0"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></symbol>
+<symbol id="i-radar" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 12 17 7M12 4v2M20 12h-2M12 20v-2M4 12h2"/></symbol>
+<symbol id="i-bridge" viewBox="0 0 24 24"><path d="M4 18V8m16 10V8M4 11h16M7 18v-4m5 4v-4m5 4v-4M3 18h18M7 8a5 5 0 0 1 10 0"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="m21 3-7.5 18-4-7-7-4Z"/><path d="M9.5 14 21 3"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="11" height="11" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></symbol>
+<symbol id="i-out" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h5"/></symbol>
+<symbol id="i-wallet" viewBox="0 0 24 24"><path d="M4 6h14a2 2 0 0 1 2 2v10H6a2 2 0 0 1-2-2Z"/><path d="M4 7V5a2 2 0 0 1 2-2h10M16 11h4v4h-4a2 2 0 0 1 0-4Z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></symbol>
+</svg>
+
+<header class="top"><div class="shell topin">
+<a class="brand" href="#"><span class="mark"><svg class="icon"><use href="#i-cat"/></svg></span>MUSKCAT</a>
+<nav class="nav"><a class="active" href="#terminal">Terminal</a><a href="#tokens">New tokens</a><a href="#whales">Whale radar</a><a href="#bridge">Bridge</a><a href="#roadmap">Roadmap</a></nav>
+<div class="right"><div class="chainPill"><span class="dot"></span>Solana mainnet</div><button class="wallet" id="walletBtn">Connect wallet</button></div>
+</div></header>
+
+<main>
+<section id="terminal" class="shell hero">
+<div>
+<div class="eyebrow"><span class="dot"></span>Solana launch discovery terminal</div>
+<h1>SEE IT EARLY.<br><span>MOVE FAST.</span></h1>
+<p class="lead">Discover newly launched Solana tokens, review activity, monitor large wallets and hand execution to your Telegram sniper from one focused interface.</p>
+<div class="heroActions"><a class="action primary" href="#tokens"><svg class="icon"><use href="#i-grid"/></svg>Open terminal</a><a class="action" id="tgHero" href="#" target="_blank" rel="noopener"><svg class="icon"><use href="#i-send"/></svg>Telegram sniper</a></div>
+</div>
+<div class="heroCard">
+<div class="orb"></div><div class="orbit"></div><div class="cat"><svg class="icon"><use href="#i-cat"/></svg></div><div class="rocket"></div>
+<div class="heroStats"><div class="hstat"><small>Feed</small><b id="heroFeed">Connecting…</b></div><div class="hstat"><small>Refresh</small><b>5 seconds</b></div><div class="hstat"><small>Execution</small><b>Telegram</b></div></div>
+</div>
+</section>
+
+<div class="statusbar"><div class="shell statusin">
+<div class="statusitem"><span class="badge">LIVE</span> Solana</div>
+<div class="statusitem"><span class="badge road">ROADMAP</span> Robinhood</div>
+<div class="statusitem"><span class="badge road">ROADMAP</span> Arc</div>
+<div class="statusitem">Bridge scope: SOL ↔ ETH</div>
+<div class="statusitem">Protocol fee utility: MUSKCAT</div>
+</div></div>
+
+<section id="tokens" class="shell section">
+<div class="sectionHead">
+<div class="title"><span class="titleIcon"><svg class="icon"><use href="#i-grid"/></svg></span><div><h2>New launches</h2><div class="sub"><span id="feedState">Connecting to Pump.fun…</span></div></div></div>
+<div class="filters"><input class="control search" id="search" placeholder="Search token or mint"/><select class="control" id="sort"><option value="new">Newest</option><option value="mc">Market cap</option><option value="bond">Bonding</option></select></div>
+</div>
+<div class="tableWrap"><table class="table">
+<thead><tr><th>Token</th><th>Age</th><th>Market cap</th><th>Bonding</th><th>Creator</th><th>Mint</th><th style="text-align:right">Actions</th></tr></thead>
+<tbody id="tokenRows"><tr><td colspan="7" class="loading">Loading token feed…</td></tr></tbody>
+</table></div>
+</section>
+
+<section class="shell section grid2">
+<div id="whales" class="panel"><div class="panelHead"><div class="panelTitle"><svg class="icon"><use href="#i-radar"/></svg>Whale radar</div><span class="sub">Activity view</span></div><div class="panelBody whaleRows" id="whaleRows"></div></div>
+<div id="bridge" class="panel"><div class="panelHead"><div class="panelTitle"><svg class="icon"><use href="#i-bridge"/></svg>MUSKCAT bridge</div><span class="badge road">ROADMAP</span></div><div class="panelBody bridgeGrid">
+<div class="swap"><div class="swapLabel"><span>From</span><span>Solana</span></div><div class="swapMain"><div class="net"><span class="coin">S</span>MUSKCAT</div><div class="amt">1,000</div></div></div>
+<div class="swap"><div class="swapLabel"><span>To</span><span>Ethereum</span></div><div class="swapMain"><div class="net"><span class="coin">E</span>MUSKCAT</div><div class="amt">≈ 998.2</div></div></div>
+<div class="feeRow"><span>Network gas</span><b>SOL / ETH</b></div><div class="feeRow"><span>Protocol fee</span><b>MUSKCAT</b></div>
+<button class="action primary wide" onclick="toast('Bridge is roadmap-only. No transaction was sent.')"><svg class="icon"><use href="#i-bridge"/></svg>Bridge MUSKCAT</button>
+<div class="notice">Native network gas remains SOL or ETH. MUSKCAT is shown here as protocol-fee utility, not as a replacement for native gas.</div>
+</div></div>
+</section>
+
+<section id="roadmap" class="shell section"><div class="sectionHead"><div class="title"><span class="titleIcon"><svg class="icon"><use href="#i-radar"/></svg></span><div><h2>Product roadmap</h2><div class="sub">Solana first. Multichain after the core terminal is stable.</div></div></div></div>
+<div class="cards">
+<div class="roadCard"><div class="step">PHASE 01 · ACTIVE</div><h3>Solana terminal</h3><p>New launch discovery</p><p>Telegram execution handoff</p><p>Wallet activity monitoring</p></div>
+<div class="roadCard"><div class="step">PHASE 02</div><h3>MUSKCAT utility</h3><p>Protocol-fee utility</p><p>Premium terminal features</p><p>Holder access layer</p></div>
+<div class="roadCard"><div class="step">PHASE 03</div><h3>SOL ↔ ETH bridge</h3><p>Cross-chain MUSKCAT utility</p><p>Wallet-first UX</p><p>Clear native gas handling</p></div>
+<div class="roadCard"><div class="step">PHASE 04</div><h3>Multichain expansion</h3><p>Robinhood roadmap</p><p>Arc roadmap</p><p>Cross-chain discovery</p></div>
+</div></section>
+</main>
+
+<footer><div class="shell footer"><strong>MUSKCAT © 2026</strong><span>Solana live focus · Robinhood & Arc roadmap</span><span>New tokens are highly speculative. Verify contracts before trading.</span></div></footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const CONFIG={
+  TELEGRAM:"https://t.me/YOUR_MUSKCAT_BOT",
+  REFRESH_MS:5000,
+  PUMP_URL:"https://frontend-api-v3.pump.fun/coins/latest?offset=0&limit=20&includeNsfw=false"
+};
+
+const $=s=>document.querySelector(s);
+const state={tokens:[],source:"connecting"};
+
+function svg(id){return `<svg class="icon"><use href="#${id}"/></svg>`}
+function short(s,n=4){s=String(s||"");return s.length>n*2+2?s.slice(0,n)+"…"+s.slice(-n):s||"—"}
+function money(n){n=Number(n)||0;if(n>=1e6)return "$"+(n/1e6).toFixed(2)+"M";if(n>=1e3)return "$"+(n/1e3).toFixed(1)+"K";return "$"+n.toFixed(0)}
+function ago(ts){let t=Number(ts)||0;if(t>1e12)t/=1000;let d=Math.max(0,Math.floor(Date.now()/1000-t));if(d<60)return d+"s";if(d<3600)return Math.floor(d/60)+"m";return Math.floor(d/3600)+"h"}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]))}
+function pctBond(t){
+  if(Number.isFinite(Number(t.bonding_curve_progress)))return Math.max(0,Math.min(100,Number(t.bonding_curve_progress)));
+  const real=Number(t.real_sol_reserves||0),virt=Number(t.virtual_sol_reserves||0);
+  if(real>0&&virt>0)return Math.max(0,Math.min(100,real/(real+virt)*100));
+  return Number(t.complete)?100:0;
+}
+function normalize(t){
+  return {
+    name:t.name||"Unknown token",symbol:t.symbol||"—",mint:t.mint||t.address||"",
+    creator:t.creator||"",image:t.image_uri||t.image||"",created:t.created_timestamp||t.created_at||Date.now(),
+    mc:Number(t.usd_market_cap||t.market_cap||0),bond:pctBond(t),raw:t
+  }
+}
+function demoTokens(){
+ const names=[["CATNOVA","CNOVA"],["MOONFISH","MFISH"],["ROCKETDOG","RDOG"],["AIPIPE","AIP"],["SOLPULSE","PULSE"],["APOLLO","APLO"]];
+ return names.map((x,i)=>({name:x[0],symbol:x[1],mint:"DEMO"+i+"MUSKCAT"+Date.now(),creator:"DEMO"+i+"WALLET",image:"",created:Date.now()-i*7000,mc:3200+i*1650,bond:8+i*6}))
+}
+async function load(){
+ try{
+   const r=await fetch(CONFIG.PUMP_URL,{cache:"no-store",headers:{"accept":"application/json"}});
+   if(!r.ok) throw new Error("HTTP "+r.status);
+   const j=await r.json(); const arr=Array.isArray(j)?j:(j.coins||j.data||[]);
+   if(!arr.length) throw new Error("No tokens");
+   state.tokens=arr.map(normalize);state.source="live";
+ }catch(e){
+   if(!state.tokens.length)state.tokens=demoTokens();
+   state.source="demo";
+ }
+ render();
+}
+function render(){
+ const live=state.source==="live";
+ $("#feedState").innerHTML=live?`<span class="liveText">Live Pump.fun feed</span> · refreshed every 5s`:`<span class="demoText">Fallback demo</span> · Pump.fun endpoint unavailable`;
+ $("#heroFeed").textContent=live?"Pump.fun LIVE":"Fallback demo";
+ let q=$("#search").value.trim().toLowerCase(),sort=$("#sort").value;
+ let a=state.tokens.filter(t=>!q||t.name.toLowerCase().includes(q)||t.symbol.toLowerCase().includes(q)||t.mint.toLowerCase().includes(q));
+ if(sort==="mc")a.sort((x,y)=>y.mc-x.mc); if(sort==="bond")a.sort((x,y)=>y.bond-x.bond);
+ $("#tokenRows").innerHTML=a.slice(0,20).map(t=>`<tr>
+ <td><div class="tokenCell">${t.image?`<img class="tokenImg" src="${esc(t.image)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none'">`:`<div class="tokenImg tokenFallback">${esc((t.symbol||"?")[0])}</div>`}<div><div class="name">${esc(t.name)}</div><div class="sym">${esc(t.symbol)}</div></div></div></td>
+ <td><span class="age"><span class="pulse"></span>${ago(t.created)}</span></td>
+ <td class="metric"><b>${t.mc?money(t.mc):"—"}</b><span>estimated</span></td>
+ <td><b>${t.bond.toFixed(0)}%</b><div class="bar"><i style="width:${t.bond}%"></i></div></td>
+ <td class="walletAddr">${esc(short(t.creator,4))}</td><td class="walletAddr">${esc(short(t.mint,4))}</td>
+ <td><div class="rowActions"><button class="iconBtn" title="Copy mint" onclick="copyMint('${esc(t.mint)}')">${svg("i-copy")}</button><button class="iconBtn" title="Open Pump.fun" onclick="openPump('${esc(t.mint)}')">${svg("i-out")}</button><button class="snipeBtn" onclick="snipe('${esc(t.mint)}')">${svg("i-send")}Snipe</button></div></td></tr>`).join("")||`<tr><td colspan="7" class="loading">No matching tokens</td></tr>`;
+ renderWhales(a);
+}
+function renderWhales(a){
+ const rows=(a.length?a:state.tokens).slice(0,6).map((t,i)=>({time:(i*7+4)+"s",wallet:short(t.creator||t.mint,4),act:i===4?"SELL":"BUY",token:t.symbol,sol:(7.4+i*5.7).toFixed(1)}));
+ $("#whaleRows").innerHTML=rows.map(w=>`<div class="whale"><span>${w.time}</span><span class="walletAddr">${esc(w.wallet)}</span><b class="${w.act==="BUY"?"green":"red"}">${w.act}</b><span>${esc(w.token)}</span><b class="hideM">${w.sol} SOL</b></div>`).join("");
+}
+function copyMint(m){if(!m)return toast("Mint unavailable");navigator.clipboard?.writeText(m).then(()=>toast("Mint copied")).catch(()=>toast(m))}
+function openPump(m){if(!m||m.startsWith("DEMO"))return toast("Live mint unavailable in demo mode");window.open("https://pump.fun/coin/"+encodeURIComponent(m),"_blank","noopener")}
+function snipe(m){
+ if(!m||m.startsWith("DEMO"))return toast("Sniper disabled for demo data");
+ if(CONFIG.TELEGRAM.includes("YOUR_MUSKCAT_BOT"))return toast("Add your Telegram bot username in CONFIG.TELEGRAM");
+ window.open(CONFIG.TELEGRAM+"?start="+encodeURIComponent(m),"_blank","noopener");
+}
+function toast(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");clearTimeout(window.tt);window.tt=setTimeout(()=>t.classList.remove("show"),2400)}
+async function connect(){
+ try{
+   if(window.solana?.isPhantom){let r=await window.solana.connect();let k=r.publicKey.toString();$("#walletBtn").textContent=short(k,4);toast("Wallet connected");}
+   else{window.open("https://phantom.app/","_blank","noopener");toast("Open with a Solana wallet browser to connect");}
+ }catch(e){toast("Wallet connection cancelled")}
+}
+$("#walletBtn").onclick=connect;$("#search").oninput=render;$("#sort").onchange=render;$("#tgHero").href=CONFIG.TELEGRAM;
+load();setInterval(load,CONFIG.REFRESH_MS);
+</script>
+</body>
+</html>
